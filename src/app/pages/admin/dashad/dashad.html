@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin - Gestion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-neutral-secondary-soft min-h-screen p-6">
+
+  <!-- Conteneur principal -->
+  <div class="max-w-5xl mx-auto space-y-10">
+
+    <!-- Title -->
+    <div>
+      <h1 class="text-3xl font-bold text-heading mb-2">Dashboard Administrateur</h1>
+      <p class="text-body text-sm">Gérez les utilisateurs et les spécialités.</p>
+    </div>
+
+    <!-- CARD : Utilisateurs -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold text-heading mb-4">Liste des utilisateurs</h2>
+
+      <!-- Tableau illustration -->
+      <div class="border rounded-lg divide-y">
+
+        <!-- Ligne 1 -->
+        <div class="flex justify-between items-center p-4">
+          <div>
+            <div class="font-medium">Jean Dupont (admin)</div>
+            <div class="text-sm text-gray-600">jean.dupont@example.com</div>
+          </div>
+          <button
+            class="px-3 py-1.5 rounded-base bg-green-600 text-white text-sm shadow-xs hover:bg-green-700">
+            Activer
+          </button>
+        </div>
+
+        <!-- Ligne 2 -->
+        <div class="flex justify-between items-center p-4">
+          <div>
+            <div class="font-medium">Marie Lefèvre (médecin)</div>
+            <div class="text-sm text-gray-600">marie.lefevre@example.com</div>
+          </div>
+          <button
+            class="px-3 py-1.5 rounded-base bg-green-600 text-white text-sm shadow-xs hover:bg-green-700">
+            Activer
+          </button>
+        </div>
+
+        <!-- Ligne 3 -->
+        <div class="flex justify-between items-center p-4">
+          <div>
+            <div class="font-medium">Paul Martin (réceptionniste)</div>
+            <div class="text-sm text-gray-600">paul.martin@example.com</div>
+          </div>
+          <button
+            class="px-3 py-1.5 rounded-base bg-green-600 text-white text-sm shadow-xs hover:bg-green-700">
+            Activer
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CARD : Gestion des spécialités -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold text-heading mb-4">Gestion des spécialités</h2>
+
+      <!-- Formulaire d'ajout -->
+      <div class="space-y-3 mb-6">
+        <label class="block text-sm font-medium">Nom de la spécialité</label>
+        <input
+          class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm focus:border-brand focus:ring-brand shadow-xs"
+          placeholder="Ex: Cardiologie" />
+
+        <button
+          class="px-4 py-2.5 rounded-base bg-brand text-white text-sm font-medium shadow-xs hover:bg-brand-strong">
+          Ajouter une spécialité
+        </button>
+      </div>
+
+      <!-- Liste illustrative -->
+      <div class="border rounded-lg divide-y">
+        <div class="p-3 text-heading">Cardiologie</div>
+        <div class="p-3 text-heading">Dermatologie</div>
+        <div class="p-3 text-heading">Pédiatrie</div>
+        <div class="p-3 text-heading">Radiologie</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

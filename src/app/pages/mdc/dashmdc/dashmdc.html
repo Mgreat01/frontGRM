@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Espace Médecin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-neutral-secondary-soft min-h-screen p-6">
+
+  <div class="max-w-6xl mx-auto space-y-10">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-3xl font-bold text-heading">Espace Médecin</h1>
+      <button
+        class="px-4 py-2.5 rounded-base bg-red-600 text-white text-sm font-medium shadow-xs hover:bg-red-700">
+        Déconnexion
+      </button>
+    </div>
+
+    <!-- SECTION : Disponibilités -->
+    <section class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold text-heading mb-4">Mes disponibilités</h2>
+
+      <!-- Formulaire illustratif -->
+      <form class="grid grid-cols-1 md:grid-cols-3 gap-3">
+
+        <div>
+          <label class="block text-sm text-heading mb-1">Date</label>
+          <input
+            type="date"
+            class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm focus:border-brand focus:ring-brand shadow-xs" />
+        </div>
+
+        <div>
+          <label class="block text-sm text-heading mb-1">Heure début</label>
+          <input
+            type="time"
+            class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm focus:border-brand focus:ring-brand shadow-xs" />
+        </div>
+
+        <div>
+          <label class="block text-sm text-heading mb-1">Heure fin</label>
+          <input
+            type="time"
+            class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm focus:border-brand focus:ring-brand shadow-xs" />
+        </div>
+
+        <button
+          type="submit"
+          class="col-span-1 md:col-span-3 w-full rounded-base bg-green-600 px-4 py-2.5 text-sm font-medium text-white shadow-xs hover:bg-green-700">
+          Ajouter une disponibilité
+        </button>
+
+      </form>
+
+      <!-- Liste illustrative -->
+      <div class="mt-6 space-y-3">
+        <div class="p-3 border rounded-lg flex justify-between items-center">
+          <div>
+            <div class="font-medium">12/02/2025 • 08:00 → 12:00</div>
+            <div class="text-sm text-gray-600">Créneau disponible</div>
+          </div>
+          <span class="px-3 py-1 rounded bg-red-200 text-red-700 text-xs">Supprimer</span>
+        </div>
+
+        <div class="p-3 border rounded-lg flex justify-between items-center">
+          <div>
+            <div class="font-medium">13/02/2025 • 14:00 → 17:00</div>
+            <div class="text-sm text-gray-600">Créneau disponible</div>
+          </div>
+          <span class="px-3 py-1 rounded bg-red-200 text-red-700 text-xs">Supprimer</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION : Rendez-vous -->
+    <section class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold text-heading mb-4">Mes rendez-vous</h2>
+
+      <!-- RDV Illustratifs -->
+      <div class="space-y-4">
+
+        <div class="border p-4 rounded-lg flex justify-between items-center">
+          <div>
+            <div class="font-medium">08:30 – 12/02/2025</div>
+            <div class="text-sm text-gray-600">Patient : <span class="font-medium">Sarah M.</span></div>
+            <div class="text-sm text-gray-500">Motif : Fièvre, maux de tête</div>
+          </div>
+          <span class="px-3 py-1 rounded bg-blue-200 text-blue-700 text-xs">Voir dossier</span>
+        </div>
+
+        <div class="border p-4 rounded-lg flex justify-between items-center">
+          <div>
+            <div class="font-medium">09:15 – 12/02/2025</div>
+            <div class="text-sm text-gray-600">Patient : <span class="font-medium">Jean P.</span></div>
+            <div class="text-sm text-gray-500">Motif : Douleurs thoraciques</div>
+          </div>
+          <span class="px-3 py-1 rounded bg-blue-200 text-blue-700 text-xs">Voir dossier</span>
+        </div>
+
+        <div class="border p-4 rounded-lg flex justify-between items-center">
+          <div>
+            <div class="font-medium">10:45 – 12/02/2025</div>
+            <div class="text-sm text-gray-600">Patient : <span class="font-medium">Lucie R.</span></div>
+            <div class="text-sm text-gray-500">Motif : Suivi post-opératoire</div>
+          </div>
+          <span class="px-3 py-1 rounded bg-blue-200 text-blue-700 text-xs">Voir dossier</span>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</body>
+</html>

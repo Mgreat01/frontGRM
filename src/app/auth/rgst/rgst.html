@@ -1,0 +1,63 @@
+<div class="flex items-center justify-center min-h-screen bg-neutral-secondary-soft">
+  <form id="registerForm" class="max-w-sm w-full space-y-6 bg-white p-6 rounded-lg shadow-md">
+
+    <!-- Nom complet -->
+    <div>
+      <label class="block mb-2.5 text-sm font-medium text-heading">Nom complet</label>
+      <input type="text" name="noms_complet"
+        class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading placeholder:text-body focus:border-brand focus:ring-brand shadow-xs"
+        placeholder="Votre nom complet" required />
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label class="block mb-2.5 text-sm font-medium text-heading">Email</label>
+      <input type="email" name="email"
+        class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading placeholder:text-body focus:border-brand focus:ring-brand shadow-xs"
+        placeholder="Adresse email" required />
+    </div>
+
+    <!-- Password -->
+    <div>
+      <label class="block mb-2.5 text-sm font-medium text-heading">Mot de passe</label>
+      <input type="password" name="motdepasse"
+        class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading placeholder:text-body focus:border-brand focus:ring-brand shadow-xs"
+        placeholder="Mot de passe" required />
+    </div>
+
+    <!-- Type utilisateur -->
+    <div>
+      <label class="block mb-2.5 text-sm font-medium text-heading">Type d'utilisateur</label>
+      <select name="type" id="typeSelect"
+        class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading focus:border-brand focus:ring-brand shadow-xs"
+        required>
+        <option value="">Choisir un type</option>
+        <option value="medecin">Médecin</option>
+        <option value="receptionniste">Réceptionniste</option>
+        <option value="admin">Administrateur</option>
+        <option value="patient">Patient</option>
+      </select>
+    </div>
+
+    <!-- Specialité (affichée uniquement si médecin) -->
+    <div id="specialiteWrapper" class="hidden">
+      <label class="block mb-2.5 text-sm font-medium text-heading">Spécialité</label>
+      <select name="specialiteId"
+        class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading focus:border-brand focus:ring-brand shadow-xs">
+        <option value="">Sélectionner une spécialité</option>
+        <option value="1">Cardiologie</option>
+        <option value="2">Dermatologie</option>
+        <option value="3">Pédiatrie</option>
+        <option value="4">Gynécologie</option>
+        <!-- tu pourras charger ça dynamiquement depuis ton API -->
+      </select>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit"
+      class="w-full rounded-base bg-brand px-4 py-2.5 text-sm font-medium text-white shadow-xs hover:bg-brand-strong focus:outline-none focus:ring-4 focus:ring-brand-medium">
+      Créer un compte
+    </button>
+
+  </form>
+</div>

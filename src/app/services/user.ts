@@ -10,7 +10,7 @@ export class User {
   constructor(private http : HttpClient){}
 
 // medecin methodes 
-  createDisponibilite(horaire: string){
+  createDisponibilite(horaire: any){
     return this.http.post(this.apiUrl + "disponibilites",horaire)
   }
 
@@ -32,5 +32,5 @@ export class User {
   }
 
 
-  
+
 }

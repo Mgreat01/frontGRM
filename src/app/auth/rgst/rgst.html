@@ -1,36 +1,55 @@
 <div class="flex items-center justify-center min-h-screen bg-neutral-secondary-soft">
-  <form id="registerForm" class="max-w-sm w-full space-y-6 bg-white p-6 rounded-lg shadow-md">
+  <form id="registerForm" (ngSubmit)="register()" class="max-w-sm w-full space-y-6 bg-white p-6 rounded-lg shadow-md">
 
     <!-- Nom complet -->
     <div>
       <label class="block mb-2.5 text-sm font-medium text-heading">Nom complet</label>
-      <input type="text" name="noms_complet"
+      <input
+        type="text"
+        name="noms_complet"
+        [(ngModel)]="noms_complet"
         class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading placeholder:text-body focus:border-brand focus:ring-brand shadow-xs"
-        placeholder="Votre nom complet" required />
+        placeholder="Votre nom complet"
+        required
+      />
     </div>
 
     <!-- Email -->
     <div>
       <label class="block mb-2.5 text-sm font-medium text-heading">Email</label>
-      <input type="email" name="email"
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
         class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading placeholder:text-body focus:border-brand focus:ring-brand shadow-xs"
-        placeholder="Adresse email" required />
+        placeholder="Adresse email"
+        required
+      />
     </div>
 
-    <!-- Password -->
+    <!-- Mot de passe -->
     <div>
       <label class="block mb-2.5 text-sm font-medium text-heading">Mot de passe</label>
-      <input type="password" name="motdepasse"
+      <input
+        type="password"
+        name="motdepasse"
+        [(ngModel)]="motdepasse"
         class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading placeholder:text-body focus:border-brand focus:ring-brand shadow-xs"
-        placeholder="Mot de passe" required />
+        placeholder="Mot de passe"
+        required
+      />
     </div>
 
     <!-- Type utilisateur -->
     <div>
       <label class="block mb-2.5 text-sm font-medium text-heading">Type d'utilisateur</label>
-      <select name="type" id="typeSelect"
+      <select
+        name="type"
+        [(ngModel)]="type"
+        (change)="onTypeChange()"
         class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading focus:border-brand focus:ring-brand shadow-xs"
-        required>
+        required
+      >
         <option value="">Choisir un type</option>
         <option value="medecin">Médecin</option>
         <option value="receptionniste">Réceptionniste</option>
@@ -39,25 +58,28 @@
       </select>
     </div>
 
-    <!-- Specialité (affichée uniquement si médecin) -->
-    <div id="specialiteWrapper" class="hidden">
+    <!-- Spécialité (affichée uniquement si médecin) -->
+    <div id="specialiteWrapper" [class.hidden]="type !== 'medecin'">
       <label class="block mb-2.5 text-sm font-medium text-heading">Spécialité</label>
-      <select name="specialiteId"
-        class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading focus:border-brand focus:ring-brand shadow-xs">
+      <select
+        name="specialiteId"
+        [(ngModel)]="specialiteId"
+        class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 text-sm text-heading focus:border-brand focus:ring-brand shadow-xs"
+      >
         <option value="">Sélectionner une spécialité</option>
         <option value="1">Cardiologie</option>
         <option value="2">Dermatologie</option>
         <option value="3">Pédiatrie</option>
         <option value="4">Gynécologie</option>
-        <!-- tu pourras charger ça dynamiquement depuis ton API -->
       </select>
     </div>
 
     <!-- Submit -->
-    <button type="submit"
-      class="w-full rounded-base bg-brand px-4 py-2.5 text-sm font-medium text-white shadow-xs hover:bg-brand-strong focus:outline-none focus:ring-4 focus:ring-brand-medium">
+    <button
+      type="submit"
+      class="w-full rounded-base bg-brand px-4 py-2.5 text-sm font-medium text-white shadow-xs hover:bg-brand-strong focus:outline-none focus:ring-4 focus:ring-brand-medium"
+    >
       Créer un compte
     </button>
-
   </form>
 </div>

@@ -30,6 +30,8 @@ export class Login {
       next: (res: any) => {
         if (res?.token) {
           this.auth.setToken(res.token);
+          this.auth.setId(res.id);
+          this.auth.setName(res.name);
           this.router.navigate(['/rgst']); // redirection
         }
       },

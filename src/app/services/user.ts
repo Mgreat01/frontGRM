@@ -28,9 +28,12 @@ export class User {
 
 
   getRdv(id: string){
-    return this.http.get(this.apiUrl + "/medecins/"+id+"/rendezvous")
+    return this.http.get(this.apiUrl + "medecins/"+id+"/rendezvous")
   }
-
+  
+  getSpecialite(){
+    return this.http.get(this.apiUrl + "admin/specialites")
+  }
 
 
 }

@@ -34,7 +34,7 @@ export class Dashmdc {
     this.medecinId = this.auth.getId();
     this.medecin = this.auth.getName(); 
 
-    this.user.getDisponibilite().subscribe((data: any) => {
+    this.user.getDisponibilite(this.medecinId).subscribe((data: any) => {
       this.disponibilites = data;
     });
 
@@ -53,7 +53,7 @@ export class Dashmdc {
 
     this.user.createDisponibilite(horaire).subscribe({
       next: () => {
-        this.user.getDisponibilite().subscribe((data: any) => {
+        this.user.getDisponibilite(this.medecinId).subscribe((data: any) => {
           this.disponibilites = data; 
         });
       },

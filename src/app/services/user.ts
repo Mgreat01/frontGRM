@@ -11,19 +11,19 @@ export class User {
 
 // medecin methodes 
   createDisponibilite(horaire: any){
-    return this.http.post(this.apiUrl + "disponibilites",horaire)
+    return this.http.post(this.apiUrl + "medecins/disponibilites",horaire)
   }
 
-  getDisponibilite(){
-    return this.http.get(this.apiUrl + "disponibilites")
+  getDisponibilite(id: string){
+    return this.http.get(this.apiUrl +`medecins/${id}/disponibilites`)
   }
 
   updateDisponibilite(id: string, horaire: string){
-    return this.http.put(this.apiUrl + "disponibilites/" + id, horaire)
+    return this.http.put(this.apiUrl + "medecins/disponibilites/" + id, horaire)
   }
 
   deleteDisponibilite(id: string){
-    return this.http.delete(this.apiUrl + "disponibilites/" + id)
+    return this.http.delete(this.apiUrl + "medecins/disponibilites/" + id)
   }
 
 

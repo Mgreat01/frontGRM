@@ -35,5 +35,23 @@ export class User {
     return this.http.get(this.apiUrl + "admin/specialites")
   }
 
+  // receptionniste methodes 
+  createRdv(rdv: any){
+    return this.http.post(this.apiUrl + "receptionnistes/rendezvous",rdv)
+  }
+
+  getAllrdv(){
+    return this.http.get(this.apiUrl + "receptionnistes/rendezvous")
+  }
+
+  updateRdv(id: string, rdv: string){
+    return this.http.put(this.apiUrl + "receptionnistes/rendezvous/" + id, rdv)
+  }
+  deleteRdv(id: string){
+    return this.http.delete(this.apiUrl + "receptionnistes/rendezvous/" + id)
+  }
+  getAllMdc(){
+    return this.http.get(this.apiUrl + "receptionnistes/medecins")
+  }
 
 }

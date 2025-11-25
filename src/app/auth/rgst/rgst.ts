@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { User } from '../../services/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rgst',
   standalone: true,
-  imports: [FormsModule], 
+  imports: [FormsModule, CommonModule], 
   templateUrl: './rgst.html',
   styleUrl: './rgst.css',
 })

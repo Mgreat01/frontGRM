@@ -23,6 +23,11 @@ export class Auth {
     return this.http.post(`${this.apiUrl}utilisateurs/login`,user)
   }
 
+  // deconnexion 
+  logoutUser(){
+    return localStorage.clear()
+  }
+
   //  recuperer le token 
 
   getToken(){
@@ -46,4 +51,29 @@ export class Auth {
   isAuth(){
     return this.getToken() !== null
   }
+
+  // recuperer l id de user
+
+  getId(): any{
+    return localStorage.getItem('id')
+  }
+
+  // stocker l id
+
+  setId(id : string){
+    return localStorage.setItem('id',id)
+  }
+
+  // recuperer le nom 
+
+  getName(): any{
+    return localStorage.getItem('name')
+  }
+
+  // stocker le nom
+
+  setName(name : string){
+    return localStorage.setItem('name',name)
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '../../services/auth';
+import { User } from '../../services/user';
 
 @Component({
   selector: 'app-rgst',
@@ -17,7 +18,15 @@ export class Rgst {
   type = '';
   specialiteId = '';
 
-  constructor(private auth: Auth, private router: Router) {}
+  specialite: any[] = [];
+
+  constructor(private auth: Auth, private router: Router , private user : User) {}
+
+  ngOnInit(): void {
+    this.user.getSpecialite().subscribe((data: any) => {
+      this.specialite = data;
+    });
+  }
 
   register(): void {
     const user: any = {

@@ -76,4 +76,16 @@ export class Auth {
     return localStorage.setItem('name',name)
   }
 
+  // recuperer le type
+
+  getType(): any{
+    return localStorage.getItem('type')
+  }
+
+  // stocker le type
+
+  setType(type : string){
+    return localStorage.setItem('type',type)
+  }
+
 }

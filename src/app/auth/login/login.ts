@@ -30,9 +30,18 @@ export class Login {
       next: (res: any) => {
         if (res?.token) {
           this.auth.setToken(res.token);
-          this.auth.setId(res.id);
-          this.auth.setName(res.name);
-          this.router.navigate(['/rgst']); // redirection
+          this.auth.setId(res.user.id);
+          this.auth.setName(res.user.name);
+          this.auth.setType(res.user.type);
+          if (res.user.type === 'medecin') {
+            this.router.navigate(['/medecin']);
+          } else if (res.user.type === 'receptionniste') {
+            this.router.navigate(['/receptionniste']);
+          } else if (res.type === 'admin') {
+            this.router.navigate(['/admin']);
+          } else if (res.type === 'patient') {
+            this.router.navigate(['/patient']);
+          }
         }
       },
       error: (err) => {

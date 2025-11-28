@@ -31,9 +31,6 @@ export class User {
     return this.http.get(this.apiUrl + "medecins/"+id+"/rendezvous")
   }
   
-  getSpecialite(){
-    return this.http.get(this.apiUrl + "admin/specialites")
-  }
 
   // receptionniste methodes 
   createRdv(rdv: any){
@@ -54,4 +51,22 @@ export class User {
     return this.http.get(this.apiUrl + "receptionnistes/medecins")
   }
 
+  // admin methodes 
+  getUtilisateurs(){
+    return this.http.get(this.apiUrl + "admin/users")
+  }
+
+  getSpecialite(){
+    return this.http.get(this.apiUrl + "admin/specialites")
+  }
+
+  createUtilisateur(utilisateur: any){
+    return this.http.post(this.apiUrl + "admin/utilisateurs",utilisateur)
+  }
+  createSpecialite(specialite: any){
+    return this.http.post(this.apiUrl + "admin/specialites",specialite)
+  }
+ activerUser(id: number){
+  return this.http.patch(this.apiUrl + "admin/utilisateurs/" + id + "/activer", {});
+}
 }

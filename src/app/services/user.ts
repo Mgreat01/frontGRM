@@ -69,4 +69,5 @@ export class User {
  activerUser(id: number){
   return this.http.patch(this.apiUrl + "admin/utilisateurs/" + id + "/activer", {});
 }
+
 }

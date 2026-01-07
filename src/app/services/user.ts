@@ -50,6 +50,9 @@ export class User {
   getAllMdc(){
     return this.http.get(this.apiUrl + "receptionnistes/medecins")
   }
+  getAllSymptomes(){
+    return this.http.get(this.apiUrl + "receptionnistes/symptomes")
+  }
 
   // admin methodes 
   getUtilisateurs(){

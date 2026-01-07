@@ -5,8 +5,8 @@
 
     <div class="flex items-center gap-3">
       <div class="w-2.5 h-2.5 bg-blue-700 rounded-full"></div>
-      <span class="text-base font-semibold text-gray-800 tracking-tight">
-        Administration
+      <span class="text-base font-semibold text-gray-800">
+        Système Hospitalier
       </span>
     </div>
 
@@ -14,175 +14,76 @@
       <a class="block px-3 py-2 rounded-md bg-blue-50 text-blue-700 font-medium border border-blue-100">
         Gestion du système
       </a>
-
       <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
         Gestion médecins
       </a>
-
       <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
         Gestion utilisateurs
       </a>
-
       <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
         Gestion spécialités
       </a>
 
-      <a
-        (click)="dec()"
-        class="block px-3 py-2 rounded-md text-red-700 hover:bg-red-50 font-medium cursor-pointer mt-6"
-      >
+      <a (click)="dec()"
+         class="block px-3 py-2 rounded-md text-red-700 hover:bg-red-50 font-medium cursor-pointer mt-6">
         Déconnexion
       </a>
     </nav>
+
   </aside>
 
-  <!-- CONTENU PRINCIPAL -->
+  <!-- CONTENU -->
   <main class="flex-1 px-6 py-8 md:px-10 space-y-8">
 
-    <!-- HEADER -->
-    <header class="flex items-center justify-between">
+    <header>
       <h1 class="text-2xl font-semibold text-gray-800">
         Espace Administrateur
       </h1>
     </header>
 
-    <!-- FORMULAIRE CREATION UTILISATEUR -->
+    <!-- CREATION UTILISATEUR -->
     <section class="bg-white border border-gray-200 rounded-md p-6">
-      <h2 class="text-lg font-semibold text-gray-800 mb-5">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">
         Création d’un utilisateur
       </h2>
 
       <form (ngSubmit)="createUtilisateur()" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
 
-        <input
-          type="text"
-          placeholder="Nom"
-          [(ngModel)]="nom"
-          name="nom"
-          class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-        >
+        <input type="text" placeholder="Nom"
+               [(ngModel)]="nom" name="nom"
+               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
 
-        <input
-          type="text"
-          placeholder="Prénom"
-          [(ngModel)]="prenom"
-          name="prenom"
-          class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-        >
+        <input type="text" placeholder="Prénom"
+               [(ngModel)]="prenom" name="prenom"
+               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
 
-        <input
-          type="email"
-          placeholder="Email"
-          [(ngModel)]="email"
-          name="email"
-          class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-        >
+        <input type="email" placeholder="Email"
+               [(ngModel)]="email" name="email"
+               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
 
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          [(ngModel)]="password"
-          name="password"
-          class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-        >
+        <input type="password" placeholder="Mot de passe"
+               [(ngModel)]="password" name="password"
+               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
 
-        <select
-          [(ngModel)]="role"
-          name="role"
-          class="border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:border-blue-500"
-        >
+        <select [(ngModel)]="role" name="role"
+                class="border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:border-blue-600">
           <option value="">Rôle</option>
           <option value="medecin">Médecin</option>
           <option value="receptionniste">Réceptionniste</option>
         </select>
 
-        <select
-          [(ngModel)]="specialiteId"
-          name="specialiteId"
-          class="border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:border-blue-500"
-        >
-          <option value="">Spécialité (médecin)</option>
-          <option *ngFor="let s of specialites" [value]="s.id">
-            {{ s.nom }}
-          </option>
+        <select [(ngModel)]="specialiteId" name="specialiteId"
+                class="border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:border-blue-600">
+          <option value="">Spécialité</option>
+          <option *ngFor="let s of specialites" [value]="s.id">{{ s.nom }}</option>
         </select>
 
-        <button
-          type="submit"
-          class="md:col-span-3 bg-blue-700 text-white py-2 rounded text-sm font-medium hover:bg-blue-800 transition"
-        >
+        <button type="submit"
+                class="md:col-span-3 bg-blue-700 text-white py-2 rounded text-sm font-medium hover:bg-blue-800">
           Ajouter l’utilisateur
         </button>
+
       </form>
-    </section>
-
-    <!-- FORMULAIRE CREATION SPECIALITE -->
-    <section class="bg-white border border-gray-200 rounded-md p-6">
-      <h2 class="text-lg font-semibold text-gray-800 mb-4">
-        Nouvelle spécialité médicale
-      </h2>
-
-      <form (ngSubmit)="createSpecialite()" class="flex gap-3 text-sm">
-        <input
-          type="text"
-          placeholder="Nom de la spécialité"
-          [(ngModel)]="nomSpecialite"
-          name="nomSpecialite"
-          class="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-green-600"
-        >
-
-        <button
-          type="submit"
-          class="bg-green-700 text-white px-4 py-2 rounded font-medium hover:bg-green-800 transition"
-        >
-          Ajouter
-        </button>
-      </form>
-    </section>
-
-    <!-- TABLEAU UTILISATEURS -->
-    <section class="bg-white border border-gray-200 rounded-md p-6">
-      <h2 class="text-lg font-semibold text-gray-800 mb-4">
-        Liste des utilisateurs
-      </h2>
-
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse text-sm">
-          <thead>
-            <tr class="bg-gray-100 border-b border-gray-200">
-              <th class="p-3 text-left font-medium text-gray-700">Nom</th>
-              <th class="p-3 text-left font-medium text-gray-700">Email</th>
-              <th class="p-3 text-left font-medium text-gray-700">Rôle</th>
-              <th class="p-3 text-left font-medium text-gray-700">Spécialité</th>
-              <th class="p-3 text-center font-medium text-gray-700">Action</th>
-            </tr>
-          </thead>
-
-          <tbody class="divide-y divide-gray-200">
-            <tr *ngFor="let u of utilisateurs" class="hover:bg-gray-50">
-              <td class="p-3 text-gray-700">{{ u.noms_complet }}</td>
-              <td class="p-3 text-gray-700">{{ u.email }}</td>
-              <td class="p-3 text-gray-700">{{ u.type }}</td>
-
-              <td class="p-3 text-gray-700 max-w-xs truncate">
-                <ng-container *ngFor="let s of specialites">
-                  <span *ngIf="s?.id === u.specialiteId">{{ s.nom }}</span>
-                </ng-container>
-              </td>
-
-              <td class="p-3 text-center">
-                <button
-                  (click)="activerUser(u.id)"
-                  [ngClass]="u.estActif ? 'bg-red-700' : 'bg-green-700'"
-                  class="px-4 py-1.5 text-white rounded text-xs font-medium hover:opacity-90 transition"
-                >
-                  {{ u.estActif ? 'Désactiver' : 'Activer' }}
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </section>
 
   </main>

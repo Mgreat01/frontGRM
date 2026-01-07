@@ -54,6 +54,12 @@ export class User {
     return this.http.get(this.apiUrl + "receptionnistes/symptomes")
   }
 
+  // patient methodes
+
+  createRdvPatient(rdv: any){
+    return this.http.post(this.apiUrl + "auto-schedule",rdv)
+  }
+
   // admin methodes 
   getUtilisateurs(){
     return this.http.get(this.apiUrl + "admin/users")

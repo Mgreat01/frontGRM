@@ -1,80 +1,191 @@
-<div class="flex min-h-screen bg-gray-50">
+<div class="flex min-h-screen bg-slate-50 font-sans text-slate-900">
 
-  <aside class="hidden md:flex w-64 bg-white border-r border-gray-200 flex-col px-6 py-5 space-y-8">
-
+  <aside class="hidden md:flex w-72 bg-white border-r border-slate-200 flex-col p-8 space-y-10 shadow-sm">
     <div class="flex items-center gap-3">
-      <div class="w-2.5 h-2.5 bg-blue-700 rounded-full"></div>
-      <span class="text-base font-semibold text-gray-800">
-        Système Hospitalier
-      </span>
+      <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
+        <span class="text-white text-2xl font-bold">+</span>
+      </div>
+      <span class="text-2xl font-extrabold tracking-tight text-slate-800">SGM<span class="text-blue-600">Health</span></span>
     </div>
 
-    <nav class="space-y-1 text-sm">
-      <a class="block px-3 py-2 rounded-md bg-blue-50 text-blue-700 font-medium border border-blue-100">
-        Gérer les rendez-vous
+    <nav class="flex-1 space-y-2">
+      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 mb-4">Menu Principal</p>
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl bg-blue-600 text-white font-semibold shadow-md shadow-blue-100 transition-all cursor-pointer">
+        <span class="text-lg">📋</span> Gérer les RDV
       </a>
-      <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-        Liste des demandes
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-600 font-medium transition-all cursor-pointer group">
+        <span class="text-lg group-hover:scale-110 transition-transform">🧾</span> Demandes
       </a>
-      <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-        Profil
-      </a>
-
-      <a (click)="dec()"
-         class="block px-3 py-2 rounded-md text-red-700 hover:bg-red-50 font-medium cursor-pointer mt-6">
-        Déconnexion
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-600 font-medium transition-all cursor-pointer group">
+        <span class="text-lg group-hover:scale-110 transition-transform">👤</span> Profil
       </a>
     </nav>
 
+    <button (click)="dec()" class="flex items-center gap-4 px-4 py-3 rounded-xl bg-red-50 text-red-600 font-bold hover:bg-red-100 transition-all border border-red-100">
+      <span>🚪</span> Déconnexion
+    </button>
   </aside>
 
-  <main class="flex-1 px-6 py-8 md:px-10 space-y-8">
-
-    <header>
-      <h1 class="text-2xl font-semibold text-gray-800">
-        Espace Réceptionniste
-      </h1>
+  <main class="flex-1 p-8 md:p-12 space-y-10 overflow-y-auto">
+    
+    <header class="flex justify-between items-end">
+      <div>
+        <h1 class="text-4xl font-black text-slate-800 tracking-tight">Espace Réception</h1>
+        <p class="text-slate-500 mt-2 font-medium">Enregistrement des nouveaux patients et planification.</p>
+      </div>
+      <div class="hidden lg:block text-right">
+        <p class="text-sm font-bold text-slate-400 uppercase tracking-tighter">Aujourd'hui</p>
+        <p class="text-lg font-bold text-slate-700">{{ today | date:'dd MMMM yyyy' }}</p>
+      </div>
     </header>
 
-    <section class="bg-white border border-gray-200 rounded-md p-6">
-      <h2 class="text-lg font-semibold text-gray-800 mb-4">
-        Attribuer un rendez-vous
-      </h2>
+    <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
+      
+      <div class="flex items-center gap-3 mb-8">
+        <span class="p-2 bg-blue-50 rounded-lg text-blue-600 font-bold">📝</span>
+        <h2 class="text-xl font-extrabold text-slate-800">Nouveau Patient</h2>
+      </div>
 
-      <form (ngSubmit)="createRdv()" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+      <form (ngSubmit)="createRdv()" class="space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase ml-1">Nom du Patient</label>
+            <input [(ngModel)]="form.nom_patient" name="nom_patient" placeholder="Ex: Jean Dupont" class="input-field">
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>
+            <input [(ngModel)]="form.email_patient" name="email_patient" type="email" placeholder="patient@mail.com" class="input-field">
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase ml-1">Téléphone</label>
+            <input [(ngModel)]="form.numero_patient" name="numero_patient" placeholder="0123456789" class="input-field">
+          </div>
+        </div>
 
-        <input placeholder="Nom patient" [(ngModel)]="nom_patient" name="nom_patient"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
+        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+          <div class="flex justify-between items-center mb-4">
+            <label class="text-xs font-black text-slate-500 uppercase tracking-widest">Symptômes identifiés ({{ symptomeIds.length }})</label>
+            <span *ngIf="symptomeIds.length === 0" class="text-[10px] text-orange-500 font-bold italic">⚠️ Sélectionnez au moins un symptôme</span>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            <div *ngFor="let s of listeSymptomes" 
+                 (click)="toggleSymptome(s)"
+                 [ngClass]="s.selected ? 'bg-blue-600 border-blue-600 shadow-blue-100 shadow-lg scale-[1.02]' : 'bg-white border-slate-200 hover:border-blue-300'"
+                 class="flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all duration-200 group">
+              
+              <div [ngClass]="s.selected ? 'bg-white/20' : 'bg-slate-100 group-hover:bg-blue-50'" class="w-5 h-5 rounded flex items-center justify-center transition-colors">
+                <span *ngIf="s.selected" class="text-white text-[10px]">✓</span>
+              </div>
+              
+              <span [ngClass]="s.selected ? 'text-white' : 'text-slate-600 font-medium'" class="text-sm truncate select-none">
+                {{ s.nom }}
+              </span>
+            </div>
+          </div>
+        </div>
 
-        <input placeholder="Email patient" [(ngModel)]="email_patient" name="email_patient"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase ml-1">Date</label>
+            <input type="date" [(ngModel)]="form.date_rdv" name="date_rdv" class="input-field">
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase ml-1">Heure</label>
+            <input type="time" [(ngModel)]="form.heure_rdv" name="heure_rdv" class="input-field">
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase ml-1">Médecin Référent</label>
+            <select [(ngModel)]="form.medecinId" name="medecinId" class="input-field appearance-none">
+              <option value="">-- Choisir un spécialiste --</option>
+              <option *ngFor="let m of medecins" [value]="m.id">
+                Dr. {{ m.noms_complet }} ({{ m.specialite?.nom }})
+              </option>
+            </select>
+          </div>
+        </div>
 
-        <input placeholder="Téléphone" [(ngModel)]="numero_patient" name="numero_patient"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
-
-        <input placeholder="Symptôme" [(ngModel)]="symptome" name="symptome"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
-
-        <input type="date" [(ngModel)]="date_rdv" name="date_rdv"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
-
-        <input type="time" [(ngModel)]="heure_rdv" name="heure_rdv"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
-
-        <select [(ngModel)]="medecinId" name="medecinId"
-                class="md:col-span-2 border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:border-blue-600">
-          <option value="">Médecin</option>
-          <option *ngFor="let m of medecins" [value]="m.id">
-            {{ m.noms_complet }} — {{ m.specialite?.nom || 'Aucune spécialité' }}
-          </option>
-        </select>
-
-        <button type="submit"
-                class="md:col-span-3 bg-blue-700 text-white py-2 rounded text-sm font-medium hover:bg-blue-800">
-          Ajouter le rendez-vous
+        <button type="submit" [disabled]="isLoading" class="group w-full py-4 bg-slate-900 hover:bg-blue-600 text-white font-black rounded-2xl transition-all duration-300 shadow-xl shadow-slate-200 flex items-center justify-center gap-3 disabled:opacity-50">
+          <span *ngIf="!isLoading">CONFIRMER LE RENDEZ-VOUS</span>
+          <span *ngIf="isLoading" class="animate-spin text-xl">⏳</span>
+          <span class="group-hover:translate-x-2 transition-transform">→</span>
         </button>
       </form>
     </section>
 
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50 overflow-hidden">
+      <div class="p-8 border-b border-slate-50 bg-slate-50/50 flex justify-between items-center">
+        <h2 class="text-xl font-extrabold text-slate-800 flex items-center gap-3">
+          <span class="p-2 bg-white rounded-lg shadow-sm">📅</span>
+          Aperçu des Rendez-vous
+        </h2>
+        <span class="px-4 py-1.5 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-500">
+          {{ rdvs.length }} RDV enregistrés
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50/50 text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
+              <th class="px-8 py-5">Planning</th>
+              <th class="px-8 py-5">Patient & Contact</th>
+              <th class="px-8 py-5">Diagnostic initial</th>
+              <th class="px-8 py-5">Praticien</th>
+              <th class="px-8 py-5 text-right">Gestion</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr *ngFor="let r of rdvs" class="hover:bg-slate-50/80 transition-colors group">
+              <td class="px-8 py-6">
+                <div class="flex items-center gap-4">
+                  <div class="p-3 bg-blue-50 text-blue-600 rounded-xl font-black text-center min-w-[60px]">
+                    <span class="block text-lg leading-none">{{ r.heure_rdv }}</span>
+                  </div>
+                  <div class="text-xs font-bold text-slate-400">
+                    {{ r.date_rdv | date:'EEEE' }}<br>
+                    <span class="text-slate-600">{{ r.date_rdv | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="px-8 py-6">
+                <div class="font-bold text-slate-800">{{ r.nom_patient }}</div>
+                <div class="text-xs text-slate-400 font-medium italic">{{ r.email_patient || 'Aucun email' }}</div>
+              </td>
+              <td class="px-8 py-6">
+                <div class="flex flex-wrap gap-1.5 max-w-[200px]">
+                  <span *ngFor="let s of r.symptomes" class="px-2 py-1 bg-slate-100 text-slate-600 text-[9px] font-black rounded-md uppercase border border-slate-200">
+                    {{ s.nom }}
+                  </span>
+                </div>
+              </td>
+              <td class="px-8 py-6">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-500">
+                    {{ r.medecin?.noms_complet.charAt(0) }}
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-slate-700">Dr. {{ r.medecin?.noms_complet }}</div>
+                    <div class="text-[10px] font-black text-blue-500 uppercase tracking-tighter">{{ r.medecin?.specialite?.nom }}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-8 py-6 text-right">
+                <button class="opacity-0 group-hover:opacity-100 transition-opacity px-4 py-2 bg-red-50 text-red-600 text-[10px] font-black rounded-lg hover:bg-red-600 hover:text-white uppercase tracking-widest">
+                  Annuler
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="rdvs.length === 0">
+              <td colspan="5" class="py-20 text-center text-slate-400 font-medium italic">
+                Aucun rendez-vous planifié pour le moment.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
 </div>
+

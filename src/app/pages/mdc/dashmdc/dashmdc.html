@@ -1,79 +1,131 @@
-<div class="flex min-h-screen bg-gray-50">
+<div class="flex min-h-screen bg-slate-50 font-sans text-slate-900">
 
-  <aside class="w-64 bg-white border-r border-gray-200 flex flex-col px-6 py-5 space-y-8">
-
+  <aside class="hidden md:flex w-72 bg-white border-r border-slate-200 flex-col p-8 space-y-10 shadow-sm">
     <div class="flex items-center gap-3">
-      <div class="w-2.5 h-2.5 bg-blue-700 rounded-full"></div>
-      <span class="text-base font-semibold text-gray-800">
-        Système Hospitalier
-      </span>
+      <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-200">
+        <span class="text-white text-2xl font-bold">⚕️</span>
+      </div>
+      <span class="text-2xl font-extrabold tracking-tight text-slate-800">SGM<span class="text-emerald-600">Doc</span></span>
     </div>
 
-    <nav class="space-y-1 text-sm">
-      <a class="block px-3 py-2 rounded-md bg-blue-50 text-blue-700 font-medium border border-blue-100">
-        Disponibilités
+    <nav class="flex-1 space-y-2">
+      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 mb-4">Tableau de Bord</p>
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold shadow-md shadow-emerald-100 transition-all cursor-pointer">
+        <span class="text-lg">📅</span> Disponibilités
       </a>
-      <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-        Rendez-vous
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-600 font-medium transition-all cursor-pointer group">
+        <span class="text-lg group-hover:scale-110 transition-transform">🗂</span> Mes Rendez-vous
       </a>
-      <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-        Profil
-      </a>
-
-      <a (click)="dec()"
-         class="block px-3 py-2 rounded-md text-red-700 hover:bg-red-50 font-medium cursor-pointer mt-6">
-        Déconnexion
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-600 font-medium transition-all cursor-pointer group">
+        <span class="text-lg group-hover:scale-110 transition-transform">👤</span> Profil
       </a>
     </nav>
 
+    <button (click)="dec()" class="flex items-center gap-4 px-4 py-3 rounded-xl bg-red-50 text-red-600 font-bold hover:bg-red-100 transition-all border border-red-100">
+      <span>🚪</span> Déconnexion
+    </button>
   </aside>
 
-  <main class="flex-1 px-6 py-8 md:px-10 space-y-8">
+  <main class="flex-1 p-8 md:p-12 space-y-10 overflow-y-auto">
 
     <header class="flex justify-between items-center">
-      <h1 class="text-2xl font-semibold text-gray-800">
-        Espace Médecin
-      </h1>
+      <div>
+        <h1 class="text-4xl font-black text-slate-800 tracking-tight">Espace Praticien</h1>
+        <p class="text-slate-500 mt-2 font-medium">Gérez votre planning et vos consultations.</p>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white p-2 pr-6 rounded-2xl border border-slate-100 shadow-sm">
+        <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-black text-xl border border-emerald-200">
+          {{ medecin.noms_complet.charAt(0) }}
+        </div>
+        <div>
+          <div class="font-bold text-slate-800">Dr. {{ medecin.noms_complet }}</div>
+          <div class="text-[10px] font-black text-emerald-600 uppercase tracking-tighter">{{ medecin.specialite?.nom }}</div>
+        </div>
+      </div>
     </header>
 
-    <section class="bg-white border border-gray-200 rounded-md p-6">
-      <h2 class="text-lg font-semibold text-gray-800 mb-4">
-        Mes disponibilités
-      </h2>
+    <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-2 h-full bg-emerald-600"></div>
+      
+      <div class="flex items-center gap-3 mb-8">
+        <span class="p-2 bg-emerald-50 rounded-lg text-emerald-600 font-bold">⏰</span>
+        <h2 class="text-xl font-extrabold text-slate-800">Mes Disponibilités</h2>
+      </div>
 
-      <form (ngSubmit)="createDsp()" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-
-        <input type="date" [(ngModel)]="date" name="date"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
-
-        <input type="time" [(ngModel)]="heure_debut" name="heure_debut"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
-
-        <input type="time" [(ngModel)]="heure_fin" name="heure_fin"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
-
-        <button type="submit"
-                class="md:col-span-3 bg-green-700 text-white py-2 rounded text-sm font-medium hover:bg-green-800">
-          Ajouter disponibilité
+      <form class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end" (ngSubmit)="createDsp()">
+        <div class="space-y-2">
+          <label class="text-xs font-bold text-slate-400 uppercase ml-1">Date</label>
+          <input type="date" [(ngModel)]="date" name="date" class="input-field">
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-bold text-slate-400 uppercase ml-1">Début</label>
+          <input type="time" [(ngModel)]="heure_debut" name="heure_debut" class="input-field">
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs font-bold text-slate-400 uppercase ml-1">Fin</label>
+          <input type="time" [(ngModel)]="heure_fin" name="heure_fin" class="input-field">
+        </div>
+        <button type="submit" class="py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl transition-all shadow-lg shadow-emerald-100 uppercase text-xs tracking-widest">
+          Ajouter
         </button>
       </form>
 
-      <div class="mt-6 space-y-3">
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div *ngFor="let d of disponibilites"
-             class="border border-gray-200 rounded p-4 flex justify-between items-center">
+             class="group flex justify-between items-center bg-slate-50 border border-slate-100 rounded-xl p-4 hover:border-emerald-200 transition-all">
           <div>
-            <div class="font-medium text-gray-800">
-              {{ d.date }} • {{ d.heure_debut }} – {{ d.heure_fin }}
-            </div>
-            <div class="text-xs text-gray-500">Créneau disponible</div>
+            <div class="font-bold text-slate-700">{{ d.date | date:'dd MMM yyyy' }}</div>
+            <div class="text-sm font-medium text-emerald-600">{{ d.heure_debut }} — {{ d.heure_fin }}</div>
           </div>
-          <button (click)="deleteDsp(d.id)"
-                  class="border border-red-200 text-red-700 px-3 py-1 rounded text-xs hover:bg-red-50">
-            Supprimer
+          <button (click)="deleteDsp(d.id)" class="opacity-0 group-hover:opacity-100 p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all">
+            🗑️
           </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50 overflow-hidden">
+      <div class="p-8 border-b border-slate-50 bg-slate-50/50 flex justify-between items-center">
+        <h2 class="text-xl font-extrabold text-slate-800 flex items-center gap-3">
+          <span class="p-2 bg-white rounded-lg shadow-sm">🗂️</span>
+          Consultations du jour
+        </h2>
+        <span class="px-4 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-black uppercase tracking-tighter">
+          {{ rdvs.length }} Patients
+        </span>
+      </div>
+
+      <div class="divide-y divide-slate-100">
+        <div *ngFor="let r of rdvs" class="p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-slate-50/50 transition-colors group">
+          
+          <div class="flex items-center gap-6">
+            <div class="p-4 bg-slate-100 rounded-2xl text-center min-w-[80px] group-hover:bg-white transition-colors border border-transparent group-hover:border-slate-200">
+              <span class="block text-xl font-black text-slate-800">{{ r.heure }}</span>
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{{ r.date | date:'dd MMM' }}</span>
+            </div>
+            
+            <div>
+              <div class="text-lg font-black text-slate-800">{{ r.patient?.noms_complet }}</div>
+              <div class="flex items-center gap-2 mt-1">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Motif:</span>
+                <span class="text-xs font-bold text-emerald-600 italic">{{ r.motif }}</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="flex items-center gap-3 px-6 py-3 bg-white border border-slate-200 rounded-xl text-sm font-black text-slate-700 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all shadow-sm">
+            OUVRIR LE DOSSIER <span>→</span>
+          </button>
+        </div>
+
+        <div *ngIf="rdvs.length === 0" class="py-20 text-center">
+          <span class="text-4xl block mb-4">☕</span>
+          <p class="text-slate-400 font-medium italic">Aucun rendez-vous pour le moment. Profitez d'une pause !</p>
         </div>
       </div>
     </section>
 
   </main>
 </div>
+

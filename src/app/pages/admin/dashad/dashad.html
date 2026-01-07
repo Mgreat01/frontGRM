@@ -1,90 +1,140 @@
-<div class="flex min-h-screen bg-gray-50">
+<div class="flex min-h-screen bg-slate-50 font-sans text-slate-900">
 
-  <!-- SIDEBAR -->
-  <aside class="hidden md:flex w-64 bg-white border-r border-gray-200 flex-col px-6 py-5 space-y-8">
-
+  <aside class="hidden md:flex w-72 bg-white border-r border-slate-200 flex-col p-8 space-y-10 shadow-sm">
     <div class="flex items-center gap-3">
-      <div class="w-2.5 h-2.5 bg-blue-700 rounded-full"></div>
-      <span class="text-base font-semibold text-gray-800">
-        Système Hospitalier
-      </span>
+      <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+        <span class="text-white text-2xl font-bold">A</span>
+      </div>
+      <span class="text-2xl font-extrabold tracking-tight text-slate-800">SGM<span class="text-indigo-600">Admin</span></span>
     </div>
 
-    <nav class="space-y-1 text-sm">
-      <a class="block px-3 py-2 rounded-md bg-blue-50 text-blue-700 font-medium border border-blue-100">
-        Gestion du système
+    <nav class="flex-1 space-y-2">
+      <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 mb-4">Administration</p>
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl bg-indigo-600 text-white font-semibold shadow-md shadow-indigo-100 transition-all cursor-pointer">
+        <span class="text-lg">⚙️</span> Système
       </a>
-      <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-        Gestion médecins
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-600 font-medium transition-all cursor-pointer">
+        <span class="text-lg">👨‍⚕️</span> Médecins
       </a>
-      <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-        Gestion utilisateurs
-      </a>
-      <a class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">
-        Gestion spécialités
-      </a>
-
-      <a (click)="dec()"
-         class="block px-3 py-2 rounded-md text-red-700 hover:bg-red-50 font-medium cursor-pointer mt-6">
-        Déconnexion
+      <a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-slate-50 text-slate-600 font-medium transition-all cursor-pointer">
+        <span class="text-lg">🧑‍🤝‍🧑</span> Utilisateurs
       </a>
     </nav>
 
+    <button (click)="dec()" class="flex items-center gap-4 px-4 py-3 rounded-xl bg-red-50 text-red-600 font-bold hover:bg-red-100 transition-all border border-red-100">
+      <span>🚪</span> Déconnexion
+    </button>
   </aside>
 
-  <!-- CONTENU -->
-  <main class="flex-1 px-6 py-8 md:px-10 space-y-8">
+  <main class="flex-1 p-8 md:p-12 space-y-10 overflow-y-auto">
 
     <header>
-      <h1 class="text-2xl font-semibold text-gray-800">
-        Espace Administrateur
-      </h1>
+      <h1 class="text-4xl font-black text-slate-800 tracking-tight">Gestion du Système</h1>
+      <p class="text-slate-500 mt-2 font-medium">Contrôlez les accès, les spécialités et les comptes utilisateurs.</p>
     </header>
 
-    <!-- CREATION UTILISATEUR -->
-    <section class="bg-white border border-gray-200 rounded-md p-6">
-      <h2 class="text-lg font-semibold text-gray-800 mb-4">
-        Création d’un utilisateur
-      </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <section class="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-8 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-indigo-600"></div>
+        <div class="flex items-center gap-3 mb-8">
+          <span class="p-2 bg-indigo-50 rounded-lg text-indigo-600 font-bold">👤</span>
+          <h2 class="text-xl font-extrabold text-slate-800">Créer un utilisateur</h2>
+        </div>
 
-      <form (ngSubmit)="createUtilisateur()" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <form (ngSubmit)="createUtilisateur()" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input [(ngModel)]="nom" name="nom" placeholder="Nom" class="input-field">
+            <input [(ngModel)]="prenom" name="prenom" placeholder="Prénom" class="input-field">
+            <input [(ngModel)]="email" name="email" type="email" placeholder="Email professionnel" class="input-field">
+            <input [(ngModel)]="password" name="password" type="password" placeholder="Mot de passe" class="input-field">
+          </div>
 
-        <input type="text" placeholder="Nom"
-               [(ngModel)]="nom" name="nom"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <select [(ngModel)]="role" name="role" class="input-field">
+              <option value="">Choisir un rôle</option>
+              <option value="medecin">Médecin</option>
+              <option value="receptionniste">Réceptionniste</option>
+            </select>
 
-        <input type="text" placeholder="Prénom"
-               [(ngModel)]="prenom" name="prenom"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
+            <select [(ngModel)]="specialiteId" name="specialiteId" class="input-field">
+              <option value="">Spécialité (si médecin)</option>
+              <option *ngFor="let s of specialites" [value]="s.id">{{ s.nom }}</option>
+            </select>
+          </div>
 
-        <input type="email" placeholder="Email"
-               [(ngModel)]="email" name="email"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
+          <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl transition-all shadow-lg shadow-indigo-100">
+            AJOUTER L'UTILISATEUR AU SYSTÈME
+          </button>
+        </form>
+      </section>
 
-        <input type="password" placeholder="Mot de passe"
-               [(ngModel)]="password" name="password"
-               class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-600">
+      <section class="bg-white border border-slate-200 rounded-2xl p-8 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+        <div class="flex items-center gap-3 mb-8">
+          <span class="p-2 bg-emerald-50 rounded-lg text-emerald-600 font-bold">🧬</span>
+          <h2 class="text-xl font-extrabold text-slate-800">Spécialité</h2>
+        </div>
 
-        <select [(ngModel)]="role" name="role"
-                class="border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:border-blue-600">
-          <option value="">Rôle</option>
-          <option value="medecin">Médecin</option>
-          <option value="receptionniste">Réceptionniste</option>
-        </select>
+        <form (ngSubmit)="createSpecialite()" class="space-y-4">
+          <input [(ngModel)]="nomSpecialite" name="nomSpecialite" placeholder="Nom (ex: Cardiologie)" class="input-field text-center">
+          <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-2xl transition-all shadow-lg shadow-emerald-100">
+            ENREGISTRER
+          </button>
+        </form>
+      </section>
+    </div>
 
-        <select [(ngModel)]="specialiteId" name="specialiteId"
-                class="border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:border-blue-600">
-          <option value="">Spécialité</option>
-          <option *ngFor="let s of specialites" [value]="s.id">{{ s.nom }}</option>
-        </select>
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50 overflow-hidden">
+      <div class="p-8 border-b border-slate-50 bg-slate-50/50">
+        <h2 class="text-xl font-extrabold text-slate-800 flex items-center gap-3">
+          <span class="p-2 bg-white rounded-lg shadow-sm">📋</span>
+          Répertoire des Comptes
+        </h2>
+      </div>
 
-        <button type="submit"
-                class="md:col-span-3 bg-blue-700 text-white py-2 rounded text-sm font-medium hover:bg-blue-800">
-          Ajouter l’utilisateur
-        </button>
-
-      </form>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50/50 text-slate-400 text-[10px] uppercase tracking-[0.2em] font-black">
+              <th class="px-8 py-5">Utilisateur</th>
+              <th class="px-8 py-5">Contact</th>
+              <th class="px-8 py-5">Rôle & Spécialité</th>
+              <th class="px-8 py-5 text-center">Statut</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr *ngFor="let u of utilisateurs" class="hover:bg-slate-50/80 transition-colors">
+              <td class="px-8 py-6">
+                <div class="flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 border border-slate-200">
+                    {{ u.noms_complet.charAt(0) }}
+                  </div>
+                  <span class="font-bold text-slate-800">{{ u.noms_complet }}</span>
+                </div>
+              </td>
+              <td class="px-8 py-6 font-medium text-slate-500">{{ u.email }}</td>
+              <td class="px-8 py-6">
+                <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-black rounded-full uppercase mr-2">
+                  {{ u.type }}
+                </span>
+                <ng-container *ngFor="let s of specialites">
+                  <span *ngIf="s?.id === u.specialiteId" class="text-xs font-bold text-slate-400">
+                    • {{ s.nom }}
+                  </span>
+                </ng-container>
+              </td>
+              <td class="px-8 py-6 text-center">
+                <button (click)="activerUser(u.id)"
+                  [ngClass]="u.estActif ? 'bg-red-50 text-red-600 hover:bg-red-600 hover:text-white' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white'"
+                  class="px-4 py-2 text-[10px] font-black rounded-lg transition-all uppercase tracking-widest border border-transparent">
+                  {{ u.estActif ? 'Désactiver' : 'Activer' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
-
   </main>
 </div>

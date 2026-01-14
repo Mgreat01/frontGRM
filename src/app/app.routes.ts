@@ -4,6 +4,7 @@ import { Rgst } from './auth/rgst/rgst';
 import { Dashmdc } from './pages/mdc/dashmdc/dashmdc';
 import { Dashrec } from './pages/rec/dashrec/dashrec';
 import { Dashad } from './pages/admin/dashad/dashad';
+import { PatientRdvComponent } from './pages/pat/pat';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,7 @@ export const routes: Routes = [
         component: Rgst,
     },
     { path: '',
-      redirectTo: '/login',
+      redirectTo: '/pat',
       pathMatch: 'full' },
     {
         path: 'medecin',
@@ -28,6 +29,10 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: Dashad,
+    },
+    {
+      path: 'pat',
+      component: PatientRdvComponent,
     },
     
 ];

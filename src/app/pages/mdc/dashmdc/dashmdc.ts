@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // Ajout de OnInit
 import { Auth } from '../../../services/auth';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../../../services/user';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,16 +12,15 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './dashmdc.html',
   styleUrl: './dashmdc.css',
 })
-export class Dashmdc {
-  medecinId = '';
-  date = '';
-  heure_debut = '';
-  heure_fin = '';
+export class Dashmdc implements OnInit {
+  medecinId: string = '';
+  date: string = '';
+  heure_debut: string = '';
+  heure_fin: string = '';
 
   disponibilites: any[] = [];
   rdvs: any[] = [];
-
-  medecin: any = {};
+  medecin: any = { noms_complet: '' }; // Initialisation pour éviter l'erreur charAt(0)
 
   constructor(private auth: Auth, private router: Router, private user: User) {}
 
@@ -34,16 +33,30 @@ export class Dashmdc {
     this.medecinId = this.auth.getId();
     this.medecin = this.auth.getName(); 
 
-    this.user.getDisponibilite(this.medecinId).subscribe((data: any) => {
-      this.disponibilites = data;
-    });
-
-    this.user.getRdv(this.medecinId).subscribe((data: any) => {
-      this.rdvs = data;
-    });
+    this.loadData();
   }
 
-  createDsp(): void {
+  // Centralisation du chargement pour plus de clarté
+  loadData(): void {
+    if (this.medecinId) {
+      this.user.getDisponibilite(this.medecinId).subscribe((data: any) => {
+        this.disponibilites = data;
+      });
+
+      this.user.getRdv(this.medecinId).subscribe((data: any) => {
+        this.rdvs = data;
+      });
+    }
+  }
+
+  createDsp(event: Event): void {
+    event.preventDefault(); // Empêche le rechargement de la page
+
+    if (!this.date || !this.heure_debut || !this.heure_fin) {
+      alert("Veuillez remplir tous les champs (Date, Début, Fin).");
+      return;
+    }
+
     const horaire = {
       medecinId: this.medecinId,
       date: this.date,
@@ -52,24 +65,30 @@ export class Dashmdc {
     };
 
     this.user.createDisponibilite(horaire).subscribe({
-      next: () => {
-        this.user.getDisponibilite(this.medecinId).subscribe((data: any) => {
-          this.disponibilites = data; 
-        });
+      next: (res) => {
+        console.log("Succès:", res);
+        // Réinitialiser les champs après succès
+        this.date = '';
+        this.heure_debut = '';
+        this.heure_fin = '';
+        this.loadData(); // Rafraîchir la liste
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        console.error("Erreur API:", err);
+        alert(err.error?.error || "Une erreur est survenue");
+      }
     });
   }
 
   deleteDsp(id: string) {
-    this.user.deleteDisponibilite(id).subscribe(() => {
-      this.disponibilites = this.disponibilites.filter(d => d.id !== id);
-    });
+    if(confirm("Supprimer cette disponibilité ?")) {
+      this.user.deleteDisponibilite(id).subscribe(() => {
+        this.disponibilites = this.disponibilites.filter(d => d.id !== id);
+      });
+    }
   }
 
-
-
-  dec(){
+  dec() {
     this.auth.logoutUser();
     this.router.navigate(['/login']);
   }

@@ -1,67 +1,81 @@
-<div class="min-h-screen bg-slate-50 font-sans text-slate-900 py-12 px-4">
-  <div class="max-w-2xl mx-auto">
-    
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-blue-100">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-        </span>
-        Système d'affectation intelligente
+<div class="min-h-screen bg-slate-50 font-sans text-slate-900">
+  
+  <nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+    <div class="flex items-center gap-3 group cursor-pointer" routerLink="/login">
+      <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200 group-hover:rotate-6 transition-all">
+        <span class="text-white text-xl font-bold">⚕️</span>
       </div>
-      <h1 class="text-4xl font-black text-slate-800 tracking-tight">Prendre Rendez-vous</h1>
-      <p class="text-slate-500 mt-2 font-medium italic">Sélectionnez vos symptômes, nous trouvons le spécialiste idéal.</p>
+      <span class="text-2xl font-extrabold tracking-tight text-slate-800">SGM<span class="text-blue-600">Santé</span></span>
     </div>
+    <a routerLink="/login" class="text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-blue-600 transition-colors">
+      Connexion Praticien
+    </a>
+  </nav>
 
-    <div *ngIf="successMessage" class="mb-8 p-6 bg-white border-l-4 border-emerald-500 rounded-2xl shadow-xl shadow-emerald-100 flex items-center gap-4 animate-in fade-in zoom-in duration-300">
-      <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">🎉</div>
-      <div>
-        <p class="font-black text-slate-800">C'est envoyé !</p>
-        <p class="text-sm text-slate-500 font-medium">{{ successMessage }}</p>
+  <div class="py-12 px-4">
+    <div class="max-w-xl mx-auto">
+      
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-emerald-100">
+          <span class="flex h-2 w-2 rounded-full bg-emerald-500 italic"></span>
+          Planification Automatique Actives
+        </div>
+        <h1 class="text-4xl font-black text-slate-800 tracking-tight leading-tight">Consultation Rapide</h1>
+        <p class="text-slate-500 mt-3 font-medium">Décrivez vos symptômes, nous vous attribuons le prochain créneau disponible.</p>
       </div>
-    </div>
 
-    <form (ngSubmit)="onSubmit()" class="space-y-6">
-      <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="md:col-span-2 space-y-2">
-          <label class="text-xs font-black text-slate-400 uppercase tracking-widest">Identité du patient</label>
-          <input [(ngModel)]="form.nom_patient" name="nom" class="input-field" placeholder="Nom et Prénom" required>
-        </div>
-        <div class="space-y-2">
-          <label class="text-xs font-black text-slate-400 uppercase tracking-widest">Téléphone</label>
-          <input [(ngModel)]="form.numero_patient" name="tel" class="input-field" placeholder="Ex: 08..." required>
-        </div>
-        <div class="space-y-2">
-          <label class="text-xs font-black text-slate-400 uppercase tracking-widest">Date & Heure</label>
-          <div class="flex gap-2">
-            <input type="date" [(ngModel)]="form.date_rdv" name="date" class="input-field py-3 text-xs" required>
-            <input type="time" [(ngModel)]="form.heure_rdv" name="heure" class="input-field py-3 text-xs" required>
-          </div>
+      <div *ngIf="successMessage" class="mb-8 p-6 bg-white border border-emerald-100 rounded-3xl shadow-xl shadow-emerald-100/50 flex items-center gap-4 animate-in slide-in-from-top duration-500">
+        <div class="w-12 h-12 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-emerald-200">✓</div>
+        <div>
+          <p class="font-black text-slate-800">Demande confirmée !</p>
+          <p class="text-sm text-slate-500 font-medium">{{ successMessage }}</p>
         </div>
       </div>
 
-      <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-        <div class="flex justify-between items-center mb-6">
-          <label class="text-xs font-black text-slate-400 uppercase tracking-widest">Symptômes observés</label>
-          <span class="text-[10px] font-bold px-2 py-1 bg-slate-100 rounded text-slate-500">{{ symptomeIds.length }} sélectionné(s)</span>
-        </div>
+      <form (ngSubmit)="onSubmit()" class="space-y-6">
         
-        <div class="flex flex-wrap gap-2">
-          <div *ngFor="let s of listeSymptomes" 
-               (click)="toggleSymptome(s)"
-               [ngClass]="s.selected ? 'bg-blue-600 border-blue-600 text-white translate-y-[-2px] shadow-lg shadow-blue-100' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'"
-               class="px-5 py-3 rounded-2xl border cursor-pointer transition-all duration-200 font-bold text-sm">
-            {{ s.nom }}
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200 space-y-5">
+          <div class="space-y-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Identité</label>
+            <input [(ngModel)]="form.nom_patient" name="nom" class="input-field" placeholder="Votre nom complet" required>
+          </div>
+          
+          <div class="space-y-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Contact</label>
+            <input [(ngModel)]="form.numero_patient" name="tel" class="input-field" placeholder="Numéro de téléphone" required>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Email (pour recevoir la confirmation)</label>
+            <input [(ngModel)]="form.email_patient" name="email" type="email" class="input-field" placeholder="adresse@email.com">
           </div>
         </div>
-      </div>
 
-      <button type="submit" [disabled]="isLoading || symptomeIds.length === 0" 
-              class="group w-full py-5 bg-slate-900 hover:bg-blue-600 text-white font-black rounded-3xl transition-all duration-300 shadow-xl disabled:opacity-30 flex items-center justify-center gap-4">
-        <span *ngIf="!isLoading">TROUVER UN SPÉCIALISTE DISPONIBLE</span>
-        <span *ngIf="isLoading" class="animate-spin text-xl">🌀</span>
-        <span *ngIf="!isLoading" class="group-hover:translate-x-2 transition-transform">→</span>
-      </button>
-    </form>
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200">
+          <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 block ml-2">Cochez ce que vous ressentez</label>
+          
+          <div class="flex flex-wrap gap-2">
+            <div *ngFor="let s of listeSymptomes" 
+                 (click)="toggleSymptome(s)"
+                 [ngClass]="s.selected ? 'bg-blue-600 border-blue-600 text-white scale-105 shadow-lg shadow-blue-100' : 'bg-slate-50 border-slate-100 text-slate-500 hover:border-blue-200'"
+                 class="px-5 py-3 rounded-2xl border cursor-pointer transition-all duration-300 font-bold text-sm">
+              {{ s.nom }}
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="isLoading || symptomeIds.length === 0" 
+                class="w-full py-6 bg-slate-900 hover:bg-blue-600 text-white font-black rounded-[2rem] transition-all duration-300 shadow-2xl disabled:opacity-20 flex items-center justify-center gap-4 group">
+          <span *ngIf="!isLoading">RÉSERVER MON CRÉNEAU</span>
+          <span *ngIf="isLoading" class="flex gap-1">
+            <span class="w-2 h-2 bg-white rounded-full animate-bounce"></span>
+            <span class="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:0.2s]"></span>
+            <span class="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:0.4s]"></span>
+          </span>
+          <span *ngIf="!isLoading" class="group-hover:translate-x-1 transition-transform">⚡</span>
+        </button>
+
+      </form>
+    </div>
   </div>
 </div>

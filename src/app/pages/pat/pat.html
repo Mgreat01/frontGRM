@@ -36,18 +36,18 @@
         
         <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200 space-y-5">
           <div class="space-y-2">
-            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Identité</label>
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2 mr-2">Identité</label>
             <input [(ngModel)]="form.nom_patient" name="nom" class="input-field" placeholder="Votre nom complet" required>
           </div>
           
           <div class="space-y-2">
-            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Contact</label>
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2 mr-2">Contact</label>
             <input [(ngModel)]="form.numero_patient" name="tel" class="input-field" placeholder="Numéro de téléphone" required>
           </div>
 
           <div class="space-y-2">
-            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Email (pour recevoir la confirmation)</label>
-            <input [(ngModel)]="form.email_patient" name="email" type="email" class="input-field" placeholder="adresse@email.com">
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2 mr-1">Email (pour recevoir la confirmation)</label>
+            <input [(ngModel)]="form.email_patient" name="email" type="email" class="input-field " placeholder="adresse@email.com" required>
           </div>
         </div>
 
